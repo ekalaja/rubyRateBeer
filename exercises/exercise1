@@ -1,0 +1,159 @@
+Last login: Fri Jan 27 13:12:10 on ttys000
+Eero-Kalajas-MacBook-Pro:~ ekalaja$ cd RubyOnRailsProjects/
+Eero-Kalajas-MacBook-Pro:RubyOnRailsProjects ekalaja$ cd ratebeer/app/
+Eero-Kalajas-MacBook-Pro:app ekalaja$ rails c
+Running via Spring preloader in process 623
+Loading development environment (Rails 5.0.1)
+Cannot read termcap database;
+using dumb terminal settings.
+[1] pry(main)> b = breweries.find_by name:"Brewdog"
+NameError: undefined local variable or method `breweries' for main:Object
+from (pry):1:in `__pry__'
+[2] pry(main)> b = brewery.find_by name:"Brewdog"  
+NameError: undefined local variable or method `brewery' for main:Object
+from (pry):2:in `__pry__'
+[3] pry(main)> b = Brewery.find_by name:"Brewdog"
+  Brewery Load (0.6ms)  SELECT  "breweries".* FROM "breweries" WHERE "breweries"."name" = ? LIMIT ?  [["name", "Brewdog"], ["LIMIT", 1]]
+=> #<Brewery:0x007fd4e2978128
+ id: 5,
+ name: "Brewdog",
+ year: 2007,
+ created_at: Wed, 25 Jan 2017 16:55:05 UTC +00:00,
+ updated_at: Wed, 25 Jan 2017 16:55:05 UTC +00:00>
+[4] pry(main)> b.beers
+  Beer Load (11.9ms)  SELECT "beers".* FROM "beers" WHERE "beers"."brewery_id" = ?  [["brewery_id", 5]]
+=> [#<Beer:0x007fd4e2bca048
+  id: 12,
+  name: "Punk IPA",
+  style: "IPA",
+  brewery_id: 5,
+  created_at: Fri, 27 Jan 2017 10:24:16 UTC +00:00,
+  updated_at: Fri, 27 Jan 2017 10:24:16 UTC +00:00>]
+[5] pry(main)> b.beers.create name:"Nanny State", style:"lowalcohol"
+   (0.1ms)  begin transaction
+  SQL (7.7ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "Nanny State"], ["style", "lowalcohol"], ["brewery_id", 5], ["created_at", 2017-01-27 11:14:15 UTC], ["updated_at", 2017-01-27 11:14:15 UTC]]
+   (1.6ms)  commit transaction
+=> #<Beer:0x007fd4e2e12cd8
+ id: 13,
+ name: "Nanny State",
+ style: "lowalcohol",
+ brewery_id: 5,
+ created_at: Fri, 27 Jan 2017 11:14:15 UTC +00:00,
+ updated_at: Fri, 27 Jan 2017 11:14:15 UTC +00:00>
+[6] pry(main)> b.beers
+=> [#<Beer:0x007fd4e2bca048
+  id: 12,
+  name: "Punk IPA",
+  style: "IPA",
+  brewery_id: 5,
+  created_at: Fri, 27 Jan 2017 10:24:16 UTC +00:00,
+  updated_at: Fri, 27 Jan 2017 10:24:16 UTC +00:00>,
+ #<Beer:0x007fd4e2e12cd8
+  id: 13,
+  name: "Nanny State",
+  style: "lowalcohol",
+  brewery_id: 5,
+  created_at: Fri, 27 Jan 2017 11:14:15 UTC +00:00,
+  updated_at: Fri, 27 Jan 2017 11:14:15 UTC +00:00>]
+[7] pry(main)> o = b.beers.first
+=> #<Beer:0x007fd4e2bca048
+ id: 12,
+ name: "Punk IPA",
+ style: "IPA",
+ brewery_id: 5,
+ created_at: Fri, 27 Jan 2017 10:24:16 UTC +00:00,
+ updated_at: Fri, 27 Jan 2017 10:24:16 UTC +00:00>
+[8] pry(main)> o.ratings.create score:23
+   (0.1ms)  begin transaction
+  SQL (10.2ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 23], ["beer_id", 12], ["created_at", 2017-01-27 11:16:07 UTC], ["updated_at", 2017-01-27 11:16:07 UTC]]
+   (2.6ms)  commit transaction
+=> #<Rating:0x007fd4e597a308
+ id: 4,
+ score: 23,
+ beer_id: 12,
+ created_at: Fri, 27 Jan 2017 11:16:07 UTC +00:00,
+ updated_at: Fri, 27 Jan 2017 11:16:07 UTC +00:00>
+[9] pry(main)> o.ratings.create score:19
+   (0.1ms)  begin transaction
+  SQL (0.5ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 19], ["beer_id", 12], ["created_at", 2017-01-27 11:16:13 UTC], ["updated_at", 2017-01-27 11:16:13 UTC]]
+   (2.5ms)  commit transaction
+=> #<Rating:0x007fd4e5b7ba30
+ id: 5,
+ score: 19,
+ beer_id: 12,
+ created_at: Fri, 27 Jan 2017 11:16:13 UTC +00:00,
+ updated_at: Fri, 27 Jan 2017 11:16:13 UTC +00:00>
+[10] pry(main)> b.beers                  
+=> [#<Beer:0x007fd4e2bca048
+  id: 12,
+  name: "Punk IPA",
+  style: "IPA",
+  brewery_id: 5,
+  created_at: Fri, 27 Jan 2017 10:24:16 UTC +00:00,
+  updated_at: Fri, 27 Jan 2017 10:24:16 UTC +00:00>,
+ #<Beer:0x007fd4e2e12cd8
+  id: 13,
+  name: "Nanny State",
+  style: "lowalcohol",
+  brewery_id: 5,
+  created_at: Fri, 27 Jan 2017 11:14:15 UTC +00:00,
+  updated_at: Fri, 27 Jan 2017 11:14:15 UTC +00:00>]
+[11] pry(main)> o = b.beers.last
+=> #<Beer:0x007fd4e2e12cd8
+ id: 13,
+ name: "Nanny State",
+ style: "lowalcohol",
+ brewery_id: 5,
+ created_at: Fri, 27 Jan 2017 11:14:15 UTC +00:00,
+ updated_at: Fri, 27 Jan 2017 11:14:15 UTC +00:00>
+[12] pry(main)> o.ratings.create score: 15
+   (0.6ms)  begin transaction
+  SQL (0.5ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 15], ["beer_id", 13], ["created_at", 2017-01-27 11:16:56 UTC], ["updated_at", 2017-01-27 11:16:56 UTC]]
+   (1.1ms)  commit transaction
+=> #<Rating:0x007fd4e5f1b4b0
+ id: 6,
+ score: 15,
+ beer_id: 13,
+ created_at: Fri, 27 Jan 2017 11:16:56 UTC +00:00,
+ updated_at: Fri, 27 Jan 2017 11:16:56 UTC +00:00>
+[13] pry(main)> o.ratings.create score: 17
+   (0.1ms)  begin transaction
+  SQL (0.5ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 17], ["beer_id", 13], ["created_at", 2017-01-27 11:17:00 UTC], ["updated_at", 2017-01-27 11:17:00 UTC]]
+   (2.7ms)  commit transaction
+=> #<Rating:0x007fd4e5bd8a28
+ id: 7,
+ score: 17,
+ beer_id: 13,
+ created_at: Fri, 27 Jan 2017 11:17:00 UTC +00:00,
+ updated_at: Fri, 27 Jan 2017 11:17:00 UTC +00:00>
+[14] pry(main)> b.beers
+=> [#<Beer:0x007fd4e2bca048
+  id: 12,
+  name: "Punk IPA",
+  style: "IPA",
+  brewery_id: 5,
+  created_at: Fri, 27 Jan 2017 10:24:16 UTC +00:00,
+  updated_at: Fri, 27 Jan 2017 10:24:16 UTC +00:00>,
+ #<Beer:0x007fd4e2e12cd8
+  id: 13,
+  name: "Nanny State",
+  style: "lowalcohol",
+  brewery_id: 5,
+  created_at: Fri, 27 Jan 2017 11:14:15 UTC +00:00,
+  updated_at: Fri, 27 Jan 2017 11:14:15 UTC +00:00>]
+[15] pry(main)> o.ratings
+  Rating Load (0.3ms)  SELECT "ratings".* FROM "ratings" WHERE "ratings"."beer_id" = ?  [["beer_id", 13]]
+=> [#<Rating:0x007fd4e5f1b4b0
+  id: 6,
+  score: 15,
+  beer_id: 13,
+  created_at: Fri, 27 Jan 2017 11:16:56 UTC +00:00,
+  updated_at: Fri, 27 Jan 2017 11:16:56 UTC +00:00>,
+ #<Rating:0x007fd4e5bd8a28
+  id: 7,
+  score: 17,
+  beer_id: 13,
+  created_at: Fri, 27 Jan 2017 11:17:00 UTC +00:00,
+  updated_at: Fri, 27 Jan 2017 11:17:00 UTC +00:00>]
+[16] pry(main)> 
+
