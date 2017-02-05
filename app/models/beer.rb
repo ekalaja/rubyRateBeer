@@ -1,18 +1,20 @@
 class Beer < ApplicationRecord
  include BasicCounting
+ 
  belongs_to :brewery
  has_many :ratings, dependent: :destroy
+ has_many :raters, through: :ratings, source: :user
 
-    #def average_rating
-        #a = self.ratings
-        #sum = 0
-        #a.each do |i|
-       #     sum = sum + i.score
-      #  end
-     #   return sum.to_f / self.ratings.count
-    #end
+
+ validates :name, uniqueness: true,
+                     length: { minimum: 1 }
+
     def to_s
         "#{name} #{brewery.name}"
+    end
 
+    def average
+        return 0 if ratings.empty?
+        ratings.map { |r| r.score }.sum / ratings.count.to_f
     end
 end
