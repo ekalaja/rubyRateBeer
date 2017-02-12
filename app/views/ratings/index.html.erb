@@ -6,5 +6,3 @@ Number of ratings <%= @ratings.count %>
    <li> <%= rating %> <%= link_to rating.user.username, rating.user %> </li>
  <% end %>
 </ul>
-
-<%= link_to 'New Rating', new_rating_path %> </br>

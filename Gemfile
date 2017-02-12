@@ -40,9 +40,22 @@ group :development, :test do
   gem 'pry-rails' #lisätty parempi konsoli
   gem 'better_errors' #parempia virheitä?
 end
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'simplecov', require: false
+
+end
+
+
 # Lisatty kaksi grouppia ja ruby versio
 group :development, :test do
   gem 'sqlite3'
+end
+group :development, :test do
+  gem 'rspec-rails', '~> 3.5'
 end
 
 group :production do

@@ -1,4 +1,5 @@
 class BeersController < ApplicationController
+  before_action :ensure_that_signed_in, except: [:index, :show]
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
 
   # GET /beers
@@ -78,4 +79,5 @@ class BeersController < ApplicationController
     def beer_params
       params.require(:beer).permit(:name, :style, :brewery_id)
     end
+    
 end
