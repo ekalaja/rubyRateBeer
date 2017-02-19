@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+<p>
+
+
+<% if @pla %>
+ <h2> <%= @pla.name %> </h2>
+
+ <p> Phone: <%= @pla.phone %> </p>
+ <p> Address: <%= @pla.street %>, <%= @pla.city %>, <%= @pla.country %> </p>
+
+ <p> <%= @pla.blogmap %> </p>
+
+
+<% end %>
+
+<%= link_to 'Back', places_path %>
