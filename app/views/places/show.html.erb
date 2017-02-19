@@ -2,13 +2,13 @@
 <p>
 
 
-<% if @pla %>
- <h2> <%= @pla.name %> </h2>
+<% if @chosen_place %>
+ <h2> <%= @chosen_place.name %> </h2>
 
- <p> Phone: <%= @pla.phone %> </p>
- <p> Address: <%= @pla.street %>, <%= @pla.city %>, <%= @pla.country %> </p>
+ <p> Phone: <%= @chosen_place.phone %> </p>
+ <p> Address: <%= @chosen_place.street %>, <%= @chosen_place.city %>, <%= @chosen_place.country %> </p>
 
- <p> <%= @pla.blogmap %> </p>
+ <p> <%= @chosen_place.blogmap %> </p>
 
 
 <% end %>

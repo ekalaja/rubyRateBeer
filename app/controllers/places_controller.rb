@@ -6,9 +6,7 @@ class PlacesController < ApplicationController
 
   def show
     #@places = BeermappingApi.places_in(session[:last_city])
-    @pla = BeermappingApi.places_in(session[:last_city]).find{ |p| p.id= params[:id]} 
-    binding.pry
-       
+    @chosen_place = BeermappingApi.places_in(session[:last_city]).find{ |p| p.id== params[:id]}        
     
   end
 
