@@ -6,6 +6,20 @@
   city <%= text_field_tag :city, params[:city] %>
   <%= submit_tag "Search" %>
 <% end %>
+<% if @weather %>
+  <h4>The current beer weather in <%= @weather.city %></h4>
+  <img src="<%= @weather.image %>" >
+  <br>
+  <div>
+    <%= @weather.temperature %> Celcius
+  </div>
+  <br>
+  <div>
+    <strong>wind:</strong> 
+      <%= @weather.wind_speed %> m/sec,
+      direction <%= @weather.wind_direction %> 
+  </div>  
+<% end %>
 
 <% if @places %>
   <table>
@@ -16,8 +30,9 @@
     </thead>
     <% @places.each do |place| %>
       <tr>
+        <td><%= link_to place.name, place_path(place.id) %></td>
         <% Place.rendered_fields.each do |f| %>
-          <td> <%= link_to place.send(f), place_path(place.id)%></td>
+          <td> <%= place.send(f) %> </td>
         <% end %>
       </tr>
     <% end %>

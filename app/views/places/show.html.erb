@@ -1,16 +1,8 @@
-<p id="notice"><%= notice %></p>
-<p>
 
+<h2> <%= @place.name %> </h2>
 
-<% if @chosen_place %>
- <h2> <%= @chosen_place.name %> </h2>
+<p> <%= @place.street %></p>
 
- <p> Phone: <%= @chosen_place.phone %> </p>
- <p> Address: <%= @chosen_place.street %>, <%= @chosen_place.city %>, <%= @chosen_place.country %> </p>
+<p> <%= @place.zip %> <%= @place.city %> </p>
 
- <p> <%= @chosen_place.blogmap %> </p>
-
-
-<% end %>
-
-<%= link_to 'Back', places_path %>
+<iframe src="<%= @place.url %>" width="600" height="400"></iframe>
