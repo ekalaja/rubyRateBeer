@@ -1,4 +1,6 @@
 require 'beermapping_api'
+require 'weather_service'
+
 class PlacesController < ApplicationController
  # before_action :set_place, only:[:show, :update]
 
