@@ -7,11 +7,9 @@
 <quote>
   <%= @style.description %>
 </quote>
-
-<% if %>
-  <%= link_to 'Edit', edit_style_path(@style) %> 
-  <%= link_to 'Delete', @style, method: :delete, data: { confirm: 'Are you sure?' }%> 
-<% end %>
+<p>
+<%= edit_and_destroy_buttons(@style) %>
+</p>
 
 <h4>Beers</h4>
 

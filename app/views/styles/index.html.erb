@@ -2,7 +2,7 @@
 
 <h1>Styles</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -13,7 +13,7 @@
   <tbody>
     <% @styles.each do |style| %>
       <tr>
-        <td><%= link_to style.name, style %></td>
+        <td><%= link_to style.name, style, class:"btn btn-info" %></td>
         <td><%= style.description %></td>
       </tr>
     <% end %>

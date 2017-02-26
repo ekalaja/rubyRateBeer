@@ -1,14 +1,21 @@
-<p id="notice"><%= notice %></p>
-
 <h2> <%= @user.username %> </h2>
 
+<% if current_user %>
+  <% if current_user.admin == true%>
+    <% if @user.blocked %> 
+      <p class="btn btn-danger"> account blocked </p> 
+    <% end %>
+    <p><%= link_to "freeze / unfreeze", toggle_blocked_user_path(@user.id), method: :post, class: "btn btn-warning" %> </p>
+  <% end %>
+<% end %>
 <p>Has made <%= @user.ratings.count %> ratings</p>
+
 
 <% if @user.beer_clubs.any? %>
 
   <p>Member of
   <% @user.beer_clubs.each do |club| %>
-    <%= link_to club.name, club%>
+    <%= link_to club.name, club, class:"btn btn-info"%>
   <% end %>
   </p>
 <% else %>
@@ -17,10 +24,10 @@
 
 <% if @user.ratings.any? %>
   <p> Favorite style is <%= @user.favorite_style %> and favorite brewery is <%= @user.favorite_brewery %></p>
-  <p> Average rating <%= @user.average_rating %></p>
+  <p> Average rating <%= round(@user.average_rating) %></p>
   <h3>ratings</h3>
 
-  <ul>
+  <ul class="list-unstyled">
   <% @user.ratings.each do |r| %>
     <li>
       <%= r %>

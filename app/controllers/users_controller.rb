@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_admin, only: [:toggle_blocked]
+
 
   # GET /users
   # GET /users.json
@@ -63,6 +65,13 @@ class UsersController < ApplicationController
       end
     end
   end
+  
+  def toggle_blocked
+      user = User.find(params[:id])
+      user.update_attribute :blocked, (not user.blocked)
+      new_status = user.blocked? ? "frozen" : "normal"
+      redirect_to :back, notice:"user status changed to #{new_status}"
+    end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -74,4 +83,6 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:username, :password, :password_confirmation)
     end
+
+    
 end

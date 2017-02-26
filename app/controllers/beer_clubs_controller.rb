@@ -1,5 +1,7 @@
 class BeerClubsController < ApplicationController
   before_action :set_beer_club, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_admin, only: [:destroy]
+
 
   # GET /beer_clubs
   # GET /beer_clubs.json
@@ -14,11 +16,7 @@ class BeerClubsController < ApplicationController
       @membership = Membership.new
       @membership.beer_club = @beer_club
     else 
-      #binding.pry
       @membership = Membership.all.where(user_id: current_user.id, beer_club_id: @beer_club.id).first
-      #@membership = Membership.find_by(current_user, @beer_club)
-      
-      #@membership.beer_club = @beer_club
     end
   end
 

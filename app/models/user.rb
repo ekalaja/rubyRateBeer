@@ -54,36 +54,13 @@ class User < ApplicationRecord
         fav_brewery
     end
 
-=begin
-    def favorite_by(qualityi)
-        highest_a = 0
-        fav_style = ''
-        if qualityi.eq "style"
-            all_ratings_by_style = ratings.group_by{ |r| r.beer.style }
-        else all_ratings_by_style = ratings.group_by{ |r| r.beer.qualityi }
-        all_ratings_by_style.each do | style_name, r_of_style|
-            if highest_a < r_of_style.map(&:score).sum/r_of_style.count.to_f
-               highest_a = r_of_style.map(&:score).sum/r_of_style.count.to_f
-               fav_style = style_name
-            end
-        end
-        fav_style
+    def number_of_ratings
+        self.ratings.count
     end
-=end
-=begin
-     def favorite_style
-        highest = 0
-        favour = ''
 
-        allRatins = ratings.group_by{ |r| r.beer.style }
-        allRatins.each do | ss, rr|
-            if highest < rr.map(&:score).sum/rr.count.to_f
-               highest = rr.map(&:score).sum/rr.count.to_f
-               favour = ss
-            end
-        end
-        favour
+    def self.top(n)
+        sorted_by_rating_in_desc_order = User.all.sort_by{ |u| -(u.ratings.count || 0) }
+        sorted_by_rating_in_desc_order = sorted_by_rating_in_desc_order[0..n-1]
     end
-=end
 
 end
