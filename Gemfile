@@ -32,6 +32,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'httparty'
 gem 'bootstrap-sass'
+gem 'jquery-turbolinks'
+gem 'chromedriver-helper'
+
 
 
 # Use Capistrano for deployment
@@ -50,6 +53,8 @@ group :test do
   gem 'launchy'
   gem 'webmock'
   gem 'simplecov', require: false
+  gem 'selenium-webdriver', '2.53.4'
+  gem 'database_cleaner'
 
 end
 

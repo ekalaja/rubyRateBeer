@@ -18,7 +18,6 @@ class PlacesController < ApplicationController
     @places = BeermappingApi.places_in(city)
     @weather = WeatherService.weather_for(city)
     session['last_city'] = city
-
     render :index
   end
 
