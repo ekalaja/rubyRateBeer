@@ -5,6 +5,11 @@ describe "beerlist page" do
   before :all do
     self.use_transactional_fixtures = false
     WebMock.disable_net_connect!(allow_localhost:true)
+
+    Capybara.register_driver :selenium do |app|
+        Capybara::Selenium::Driver.new(app, :browser => :chrome)
+    end
+
   end
 
   before :each do
@@ -32,8 +37,9 @@ describe "beerlist page" do
 
   it "shows one known beer", js: true do
     visit beerlist_path
-    #find('table').find('tr:nth-child(2)')
+    find('table').find('tr:nth-child(2)')
     save_and_open_page
+    sleep(10)
     expect(page).to have_content "Nikolai"
   end
 end

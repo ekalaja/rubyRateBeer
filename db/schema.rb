@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170226080646) do
+ActiveRecord::Schema.define(version: 20170306181551) do
 
   create_table "beer_clubs", force: :cascade do |t|
     t.string   "name"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20170226080646) do
     t.string   "password_digest"
     t.boolean  "admin"
     t.boolean  "blocked"
+    t.index ["username"], name: "index_users_on_username"
   end
 
 end
